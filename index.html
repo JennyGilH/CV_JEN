@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoja de Vida - Jenny Johana Gil Hormaza</title>
+    <!-- Unión del código HTML con la hoja de estilos -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="hoja-de-vida">
+      <!-- Cabecera: foto, nombre y perfil -->
+      <header class="cabecera">
+        <!-- PENDIENTE: agregar la foto real en esta carpeta y descomentar la línea siguiente
+            <img src="foto-perfil.jpg" alt="Foto de perfil de Jenny Gil">
+            -->
+        <h1>Jenny Johana Gil Hormaza</h1>
+        <p class="destacado">Estudiante de Ingeniería de Sistemas</p>
+      </header>
+
+      <!-- Perfil profesional -->
+      <section class="seccion seccion--perfil" aria-labelledby="titulo-perfil">
+        <h2 id="titulo-perfil">Perfil Profesional</h2>
+        <p>
+          Estudiante de Ingeniería de Sistemas y Tecnología en Desarrollo
+          Informático en la Universidad ECCI. Apasionada por la programación, la
+          gestión de bases de datos y la ciberseguridad. Cuento con experiencia
+          académica en la creación de algoritmos, diseño de bases de datos y
+          ejecución de planes de pruebas de software.
+        </p>
+      </section>
+
+      <!-- Educación -->
+      <section class="seccion seccion--educacion" aria-labelledby="titulo-educacion">
+        <h2 id="titulo-educacion">Educación</h2>
+
+        <article class="item">
+          <h3>Universidad ECCI</h3>
+          <p>Ingeniería de Sistemas y Tecnología en Desarrollo Informático</p>
+          <p class="fecha">
+            Bogotá, Colombia | <time datetime="2025">2025</time> - Presente
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>Edutin Academy</h3>
+          <p>Curso de Álgebra Lineal</p>
+          <p class="fecha"><time datetime="2024-10">Octubre 2024</time></p>
+        </article>
+      </section>
+
+      <!-- Proyectos -->
+      <section class="seccion seccion--proyectos" aria-labelledby="titulo-proyectos">
+        <h2 id="titulo-proyectos">Proyectos Destacados</h2>
+
+        <article class="item">
+          <h3>Semillero de Ciberseguridad</h3>
+          <p>
+            Participación en el diseño estructural (UML) y modelado de datos
+            para eventos y proyectos del semillero universitario.
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>Plan de Pruebas - Portal ARCA</h3>
+          <p>
+            Diseño de estrategias de pruebas de software bajo estándares
+            internacionales (ISO/IEC/IEEE 29119) para la plataforma ARCA de la
+            universidad.
+          </p>
+        </article>
+      </section>
+
+      <!-- Habilidades técnicas -->
+      <section class="seccion seccion--habilidades habilidades" aria-labelledby="titulo-habilidades">
+        <h2 id="titulo-habilidades">Habilidades Técnicas</h2>
+        <ul>
+          <li>Python, C y C++</li>
+          <li>HTML y CSS</li>
+          <li>MySQL y Diseño de Bases de Datos</li>
+          <li>Ubuntu Linux y Bash Scripting</li>
+          <li>CmapTools y GeoGebra</li>
+        </ul>
+      </section>
+
+      <!-- Referencias profesionales: el área "referencias" ya está definida en el grid.
+           PENDIENTE: reemplazar los datos entre [corchetes], quitar este comentario
+           y duplicar el <p> por cada referencia.
+           - tel:     número completo con indicativo, sin espacios (+57 = Colombia)
+           - wa.me:   mismo número SIN el signo + ni espacios
+      <section class="seccion seccion--referencias" aria-labelledby="titulo-referencias">
+        <h2 id="titulo-referencias">Referencias Profesionales</h2>
+        <p>
+          [Nombre completo] · [Cargo] · [Institución o empresa]<br />
+          Tel: <a href="tel:+57XXXXXXXXXX">+57 XXX XXX XXXX</a> ·
+          <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </p>
+      </section>
+      -->
+
+      <!-- Contacto -->
+      <footer class="creditos">
+        <!-- PENDIENTE: agregar correo de contacto real (el de la referencia era un ejemplo) -->
+        <address>Bogotá, Colombia</address>
+      </footer>
+    </main>
+  </body>
+</html>

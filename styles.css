@@ -1,0 +1,352 @@
+/* Paleta y valores reutilizados en toda la hoja de vida */
+:root {
+    --color-fondo: #f3f4f6;
+    --color-superficie: #ffffff;
+    --color-cabecera: #111827;
+    --color-acento: #3b82f6;
+    --color-texto: #4b5563;
+    --color-texto-suave: #6b7280;
+    --color-fecha: #9ca3af;
+    --color-borde: #e5e7eb;
+    --radio: 12px;
+    --cabecera-desplazamiento: 30px; /* cuánto baja la tarjeta de la cabecera */
+    --cabecera-sobresale: 40px;      /* cuánto sobresale bajo la franja oscura */
+    --escalon: 40px;                 /* desnivel de las tarjetas de la derecha */
+}
+
+/* Sin márgenes: todo el espaciado se hace con padding.
+   Elimina también los márgenes por defecto del navegador (body, h1-h3, p, ul) */
+*,
+*::before,
+*::after {
+    margin: 0;
+}
+
+/* Fondo de la página */
+body {
+    background-color: var(--color-fondo);
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+/* Contenedor principal de la hoja de vida */
+.hoja-de-vida {
+    background-color: var(--color-superficie);
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--radio);
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    /* Estructura: 3 columnas x 7 filas */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        ".           cabecera    .          "
+        "perfil      perfil      perfil     "
+        "educacion   educacion   educacion  "
+        "proyectos   proyectos   proyectos  "
+        "habilidades habilidades habilidades"
+        "referencias referencias referencias"
+        "pie         pie         pie        ";
+}
+
+/* Fondo oscuro de la fila 1: cubre también las celdas vacías.
+   Termina antes que la tarjeta para que esta sobresalga por debajo */
+.hoja-de-vida::before {
+    content: "";
+    grid-row: 1;
+    grid-column: 1 / -1;
+    align-self: start;
+    height: calc(100% + var(--cabecera-desplazamiento) - var(--cabecera-sobresale));
+    background-color: var(--color-cabecera);
+}
+
+/* Asignación de cada bloque a su área */
+.cabecera              { grid-area: cabecera; }
+.seccion--perfil       { grid-area: perfil; }
+.seccion--educacion    { grid-area: educacion; }
+.seccion--proyectos    { grid-area: proyectos; }
+.seccion--habilidades  { grid-area: habilidades; }
+.seccion--referencias  { grid-area: referencias; }
+.creditos              { grid-area: pie; }
+
+/* Cabecera: tarjeta blanca que "flota" sobre la franja oscura de la fila 1.
+   "top" la desplaza hacia abajo sin alterar el grid, así sobresale hacia la fila 2 */
+.cabecera {
+    position: relative;
+    top: var(--cabecera-desplazamiento);
+    z-index: 1;
+    background-color: var(--color-superficie);
+    border-radius: var(--radio);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    padding: 28px 16px;
+}
+
+/* Foto de perfil: cuadro con bordes redondeados */
+.cabecera img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--radio);
+    border: 3px solid var(--color-acento);
+}
+
+/* Separación foto → nombre (la foto es inline: el padding va en el h1) */
+.cabecera img + h1 {
+    padding-top: 15px;
+}
+
+.cabecera h1 {
+    color: var(--color-cabecera);
+    padding-bottom: 10px;
+    font-size: 28px;
+}
+
+/* Título profesional destacado */
+.destacado {
+    color: var(--color-acento);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Secciones interiores */
+.seccion {
+    padding: 25px 30px;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.seccion:last-of-type {
+    border-bottom: none;
+}
+
+.seccion h2 {
+    padding-bottom: 15px;
+    font-size: 20px;
+    color: var(--color-cabecera);
+}
+
+/* Espacio extra para que la tarjeta de la cabecera no tape el perfil */
+.seccion--perfil {
+    padding-top: calc(25px + var(--cabecera-desplazamiento));
+}
+
+/* Educación y proyectos: línea de tiempo de 2 columnas
+   con tarjetas alternadas a cada lado de una línea central */
+.seccion--educacion,
+.seccion--proyectos {
+    --hueco-linea: 48px;
+
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--hueco-linea);
+    row-gap: 24px;
+    align-items: start;
+    padding-bottom: calc(25px + var(--escalon)); /* cabe la tarjeta desplazada */
+}
+
+.seccion--educacion h2,
+.seccion--proyectos h2 {
+    grid-column: 1 / -1;
+    padding-bottom: 0;
+}
+
+/* Línea vertical central: arranca bajo el título (padding 25px + h2 + gap) */
+.seccion--educacion::after,
+.seccion--proyectos::after {
+    content: "";
+    position: absolute;
+    top: 72px;
+    bottom: 25px;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background-color: var(--color-borde);
+}
+
+/* Tarjeta de cada elemento */
+.item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    border-top: 3px solid var(--color-acento);
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    padding: 16px;
+}
+
+/* La tarjeta de la derecha baja un poco: efecto escalonado */
+.item:nth-of-type(even) {
+    top: var(--escalon);
+}
+
+/* Punto que une cada tarjeta con la línea central
+   (desplazamiento = mitad del hueco + 1px de borde + mitad del punto) */
+.item::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    z-index: 1; /* por encima de la línea central */
+    border-radius: 50%;
+    background-color: var(--color-acento);
+    border: 2px solid var(--color-superficie);
+}
+
+.item:nth-of-type(odd)::before {
+    right: calc(-1 * var(--hueco-linea) / 2 - 9px);
+}
+
+.item:nth-of-type(even)::before {
+    left: calc(-1 * var(--hueco-linea) / 2 - 9px);
+}
+
+.item h3 {
+    padding-bottom: 5px;
+    font-size: 16px;
+    color: var(--color-acento);
+}
+
+/* Textos de descripción */
+.seccion p {
+    padding: 0 0 8px 0;
+    color: var(--color-texto);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Dentro de las tarjetas, el padding de la tarjeta ya da el espacio inferior */
+.item p {
+    padding-bottom: 0;
+}
+
+/* Educación: más aire entre la fecha (arriba) y el título de cada artículo */
+.seccion--educacion .item h3 {
+    padding-top: 16px;
+}
+
+/* Fecha como etiqueta en la parte superior de la tarjeta.
+   Mayor especificidad que ".seccion p", sin necesidad de !important */
+.seccion .fecha {
+    order: -1;
+    align-self: flex-start;
+    background-color: var(--color-acento);
+    color: var(--color-superficie);
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.4;
+    padding: 3px 20px;
+    border-radius: 4px;
+}
+
+/* Lista de habilidades en dos columnas con viñetas cuadradas */
+.habilidades ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+}
+
+.habilidades li {
+    color: var(--color-texto);
+    font-size: 15px;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+}
+
+.habilidades li::before {
+    content: "■";
+    color: var(--color-acento);
+    font-size: 12px;
+    padding-right: 10px;
+}
+
+/* Pie de página / contacto */
+.creditos {
+    background-color: #f9fafb;
+    padding: 15px 20px;
+    font-size: 13px;
+    color: var(--color-texto-suave);
+    border-top: 1px solid var(--color-borde);
+    text-align: center;
+}
+
+.creditos address {
+    font-style: normal;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 480px) {
+    body {
+        padding: 16px;
+    }
+
+    /* Una sola columna en móvil */
+    .hoja-de-vida {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "cabecera"
+            "perfil"
+            "educacion"
+            "proyectos"
+            "habilidades"
+            "referencias"
+            "pie";
+    }
+
+    .seccion {
+        padding: 20px;
+    }
+
+    :root {
+        --cabecera-desplazamiento: 24px;
+    }
+
+    .seccion--perfil {
+        padding-top: calc(20px + var(--cabecera-desplazamiento));
+    }
+
+    /* Tarjeta con 20px de aire a cada lado, centrada */
+    .cabecera {
+        box-sizing: border-box;
+        width: calc(100% - 40px);
+        justify-self: center;
+    }
+
+    .cabecera h1 {
+        font-size: 24px;
+    }
+
+    /* Línea de tiempo y habilidades en una sola columna */
+    .seccion--educacion,
+    .seccion--proyectos,
+    .habilidades ul {
+        grid-template-columns: 1fr;
+    }
+
+    .seccion--educacion::after,
+    .seccion--proyectos::after,
+    .item::before {
+        display: none;
+    }
+
+    .seccion--educacion,
+    .seccion--proyectos {
+        padding-bottom: 20px;
+    }
+
+    .item:nth-of-type(even) {
+        top: 0;
+    }
+}
